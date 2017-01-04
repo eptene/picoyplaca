@@ -54,6 +54,7 @@ public class HoraDAO implements HoraDAOLocal {
 	 * @param horaManana Tipo Hora, Horario Restriccion Manana
 	 * @param horaTarde Tipo Hora, Horario Restriccion Tarde
 	 */
+	@SuppressWarnings("deprecation")
 	public HoraDAO(HorarioPicoPlaca horaManana, HorarioPicoPlaca horaTarde){
 		this.fromm = horaManana.getHoraInicio().getHours() * 100 + horaManana.getHoraInicio().getMinutes();
 		this.tom = horaManana.getHoraFinal().getHours() * 100 + horaManana.getHoraFinal().getMinutes();
