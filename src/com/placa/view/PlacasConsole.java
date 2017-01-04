@@ -1,5 +1,8 @@
 package com.placa.view;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,41 +32,91 @@ public class PlacasConsole {
 	private static HorarioPicoPlaca tarde = new HorarioPicoPlaca();
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		
-		for(String item: args){
-			System.out.println(item);
-		}
 		String path;
-		if(args[0]==null){
-			path = "C:\\Users\\hp\\workspace-primefaces\\Placas\\test.txt";
-		}
-		else
+		if(args != null && args.length > 0){
+			//path = "C:\\Users\\hp\\workspace-primefaces\\Placas\\test.txt";
 			path = args[0];
+		}
+		else{
+			System.out.println("Ingrese ruta y nombre del archivo, formato C:\\ruta\\al\\directorio\\archivo.txt");
+			System.out.print("(Enter para terminar): ");
+			StringBuffer string  = new StringBuffer();
+			char c;
+			try{
+				Reader entrada = new InputStreamReader(System.in);
+				while((c=(char)entrada.read()) != '\n'){					
+					string.append(c);
+				}	
+				path = string.toString().substring(0, string.length()-1);
+			}catch(IOException e){
+				System.out.println("Error al leer la ruta y el fichero, debe estar en el formato");
+				path = "";
+			}
+		}
+			
 		
 		Date fecha;
-		if(args[1]==null)
-			fecha = new Date();
-		else{			
+		if(args != null && args.length > 1){
 			try {
 				fecha = sf.parse(args[1]);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				//e.printStackTrace();
-				fecha = new Date();
-				System.out.println("Error en el formato de la fecha, ej: 31-12-2017, se utilizara la fecha actual");				
+				fecha = null;
+				System.out.println("Error en el formato de la fecha, ej: 31-12-2017");				
+			}
+		}
+		else{				
+			System.out.println("Ingrese fecha para verificar pico y placa, formato dd-mm-yyyy");
+			System.out.print("(Enter para terminar): ");
+			StringBuffer string  = new StringBuffer();
+			char c;
+			try{
+				Reader entrada = new InputStreamReader(System.in);
+				while((c=(char)entrada.read()) != '\n'){					
+					string.append(c);
+				}								
+			}catch(IOException e){
+				System.out.println("Error al leer la fecha, debe estar en el formato");
+				//string = "".;
+			}
+			try {
+				fecha = sf.parse(string.toString().substring(0, string.length()-1));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block				
+				fecha = null;
+				System.out.println("Error en el formato de la fecha, ej: 31-12-2017");
+				
 			}
 		}
 		Date hora;
-		if(args[2] == null){
-			hora = new Date();
-		}
-		else{
+		if(args != null && args.length > 2){			
 			if(isHora(args[2]))
 				hora = toHora(args[2]);
 			else{
 				hora = new Date();
 				System.out.println("Error en el formato de hora, ej: 07:59, se usara la hora actual");
+			}
+		}
+		else{			
+			System.out.println("Ingrese hora para verificar pico y placa, formato hh:mm ");
+			System.out.print("(Enter para terminar): ");
+			StringBuffer string  = new StringBuffer();
+			char c;
+			try{
+				Reader entrada = new InputStreamReader(System.in);
+				while((c=(char)entrada.read()) != '\n'){
+					if(c!='\n')
+						string.append(c);
+				}				
+				if(isHora(string.toString().substring(0, string.length()-1)))
+					hora = toHora(string.toString().substring(0, string.length()-1));
+				else
+					hora = null;
+			}catch(IOException e){
+				System.out.println("Error al leer la hora, debe estar en el formato");
+				hora = null;
 			}
 		}			
 		
@@ -73,9 +126,9 @@ public class PlacasConsole {
 		HoraDAO servicioHora = new HoraDAO();
 		FechaDAO servicioFecha = new FechaDAO();
 		
-		try{
+		try{			
 			List<Placa> placas =  servicio.getAllPlacas(path);
-			if(placas!=null){
+			if(placas!=null && fecha != null && hora != null){
 				int i = 1;
 				for(Placa item: placas){
 					if(servicio.isPlaca(item.getPlaca())){
@@ -93,6 +146,8 @@ public class PlacasConsole {
 						System.out.println("no es placa #" + i + "->" + item.getPlaca());
 					i++;
 				}					
+			}else{
+				System.out.println("Parametros no ingresados");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -120,9 +175,9 @@ public class PlacasConsole {
 		tarde.setHoraFinal(horaTemp4);
 	}
 	
-	public static Boolean isHora(String arg){
+	public static Boolean isHora(String arg){		
 		Pattern pattern = Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]");
-		Matcher matcher = pattern.matcher(arg);
+		Matcher matcher = pattern.matcher(arg);		
 		return matcher.matches();		
 	}
 	
