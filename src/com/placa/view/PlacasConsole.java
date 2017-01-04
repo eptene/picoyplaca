@@ -35,8 +35,9 @@ public class PlacasConsole {
 			System.out.println(item);
 		}
 		String path;
-		if(args[0]==null)
+		if(args[0]==null){
 			path = "C:\\Users\\hp\\workspace-primefaces\\Placas\\test.txt";
+		}
 		else
 			path = args[0];
 		
@@ -99,6 +100,7 @@ public class PlacasConsole {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void initHorarioCirculacion(){
 		Date horaTemp1 = new Date();
 		Date horaTemp2 = new Date();
@@ -124,6 +126,7 @@ public class PlacasConsole {
 		return matcher.matches();		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static Date toHora(String arg){
 		Date hora = new Date();
 		String[] tokens = arg.split(":");
