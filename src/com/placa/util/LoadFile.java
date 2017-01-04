@@ -19,6 +19,7 @@ import com.placa.model.Placa;
  * @version 1.0
  * @since 2017-01-03
  */
+@SuppressWarnings("unused")
 public class LoadFile {
 
 	private String path;
@@ -35,7 +36,9 @@ public class LoadFile {
 	 * @return Lista de cadenas con placas
 	 * @throws Errores en el nombre del archivo y en lectura del archivo
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Placa> getPlacas(){		
+		@SuppressWarnings("rawtypes")
 		ArrayList<Placa> placas = new ArrayList();
 		InputStream fin = null;
 		Scanner sc = null;
