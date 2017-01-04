@@ -27,9 +27,15 @@ Entra al siguiente directorio
 Compila el proyecto mediante el archivo main:
 `javac -Xlint com\placa\view\PlacasConsole.java`
 
+#### Version con argumentos
 Ejecuta el archivo compilado con los argumentos (ruta y nombre del fichero en formato C:\\ruta\\al\\archivo\\de\\placas.txt, 
 fecha en formato dd-mm-yyyy, hora en formato hh:mm) y listo!:
 `java com.placa.view.PlacasConsole C:\\ruta\\al\\archivo\\de\\placas.txt 12-01-2017 12:58`
+
+#### Version con argumentos en el programa
+- Ejecuta el archivo compilado:
+  `java com.placa.view.PlacasConsole`
+- Ingresa las entradas del programas: ruta y nombre del fichero, fecha, hora.
 
 
 
