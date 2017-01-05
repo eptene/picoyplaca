@@ -8,6 +8,7 @@ Aplicación en java que verifica si las placas obtenidas desde un archivo de tex
 
 ## Pasos para ejecución
 ### Paso 1
+Abre una consola de comandos (`cmd`)
 Descarga el proyecto
 `git clone https://github.com/eptene/picoyplaca.git`
 
