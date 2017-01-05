@@ -31,12 +31,28 @@ public class LoadFile {
 		this.path = path;
 	}
 	
+	public LoadFile(){
+		
+	}
+	
 	/**
 	 * Obtiene todas las cadenas del archivo de placas
 	 * @return Lista de cadenas con placas
 	 * @throws Errores en el nombre del archivo y en lectura del archivo
 	 */
 	@SuppressWarnings("unchecked")
+	
+	public Boolean isFile(String path){
+		try {
+			InputStream fin = new FileInputStream(path);
+			return true;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public List<Placa> getPlacas(){		
 		@SuppressWarnings("rawtypes")
 		ArrayList<Placa> placas = new ArrayList();
